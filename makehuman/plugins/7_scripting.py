@@ -583,7 +583,7 @@ class Scripting():
         filename = os.path.join(path,name + ".mhm")
         self.human.load(filename, True)
 
-    def saveObj(self, name, path = mh.getPath('exports')):
+    def saveObj(self, name, path = mh.getPath('exports')):#save object path
         log.message("SCRIPT: saveObj(" + name + "," + path + ")")
         filename = os.path.join(path,name + ".obj")
         import wavefront

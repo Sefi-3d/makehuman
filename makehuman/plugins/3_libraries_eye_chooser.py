@@ -88,7 +88,7 @@ def load(app):
 
     # Load initial eyes
     log.debug("According to mh.getSysDataPath here's high poly eyes %s", mh.getSysDataPath("eyes/high-poly/high-poly.mhclo"))
-    taskview.selectProxy(mh.getSysDataPath("eyes/high-poly/high-poly.mhclo"))
+    taskview.selectProxy(mh.getSysDataPath("eyes/low-poly/low-poly.mhclo"))
 
 # This method is called when the plugin is unloaded from makehuman
 # At the moment this is not used, but in the future it will remove the added GUI elements

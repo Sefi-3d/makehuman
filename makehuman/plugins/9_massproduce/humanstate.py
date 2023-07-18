@@ -291,23 +291,27 @@ class HumanState():
 
     def _randomizeFullClothes(self):
         allowed = self._getAllowedClothesForPartAndGender("full", self._getCurrentGender())
-        picked = self._pickOneFromArray(allowed)
-        self.clothes.append(picked)
+        if len(allowed) > 0:
+            picked = self._pickOneFromArray(allowed)
+            self.clothes.append(picked)
 
     def _randomizeUpperClothes(self):
         allowed = self._getAllowedClothesForPartAndGender("upper", self._getCurrentGender())
-        picked = self._pickOneFromArray(allowed)
-        self.clothes.append(picked)
+        if len(allowed) > 0:
+            picked = self._pickOneFromArray(allowed)
+            self.clothes.append(picked)
 
     def _randomizeLowerClothes(self):
         allowed = self._getAllowedClothesForPartAndGender("lower", self._getCurrentGender())
-        picked = self._pickOneFromArray(allowed)
-        self.clothes.append(picked)
+        if len(allowed) > 0:
+            picked = self._pickOneFromArray(allowed)
+            self.clothes.append(picked)
 
     def _randomizeShoes(self):
         allowed = self._getAllowedClothesForPartAndGender("shoes", self._getCurrentGender())
-        picked = self._pickOneFromArray(allowed)
-        self.clothes.append(picked)
+        if len(allowed) > 0:
+            picked = self._pickOneFromArray(allowed)
+            self.clothes.append(picked)
 
     def _randomizeProxies(self):
         if self.settings.getValue("proxies","hair"):
@@ -321,17 +325,18 @@ class HumanState():
             if self.settings.getValue("proxies",k):
                 self.clothes = []
 
-        if self.settings.getValue("proxies","fullClothes"):
+        if self.settings.getValue("proxies","fullClothes") and random.randint(0, 1):
             self._randomizeFullClothes()
 
-        if self.settings.getValue("proxies","upperClothes"):
+        if self.settings.getValue("proxies","upperClothes") and random.randint(0, 1):
             self._randomizeUpperClothes()
 
-        if self.settings.getValue("proxies","lowerClothes"):
+        if self.settings.getValue("proxies","lowerClothes") and random.randint(0, 1):
             self._randomizeLowerClothes()
 
         if self.settings.getValue("proxies","shoes"):
             self._randomizeShoes()
+
 
     def equipClothes(self):
         mhapi.assets.unequipAllClothes()

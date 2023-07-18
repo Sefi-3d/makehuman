@@ -50,7 +50,7 @@ class ExportTaskView(gui3d.TaskView):
         super(ExportTaskView, self).__init__(category, 'Export')
 
         # Declare new settings
-        gui3d.app.addSetting('exportdir', mh.getPath("exports"))
+        gui3d.app.addSetting('exportdir', mh.getPath("exports"))#save object path
 
         self.formats = []
         self.recentlyShown = None

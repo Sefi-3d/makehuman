@@ -72,20 +72,27 @@ class MassProduceTaskView(gui3d.TaskView):
 
     def _setupRandomizeMaterials(self, layout, r):
         layout.addWidget(mhapi.ui.createLabel("Randomize materials:"))
-        layout.addWidget(r.addUI("materials", "randomizeSkinMaterials", mhapi.ui.createCheckBox(label="Randomize skins", selected=True)))
-        #layout.addWidget(r.addUI("materials", "randomizeHairMaterials", mhapi.ui.createCheckBox(label="Randomize hair material", selected=True)))
-        #layout.addWidget(r.addUI("materials", "randomizeClothesMaterials", mhapi.ui.createCheckBox(label="Randomize clothes material", selected=True)))
+        layout.addWidget(r.addUI("materials", "randomizeSkinMaterials",
+                                 mhapi.ui.createCheckBox(label="Randomize skins", selected=True)))
+        layout.addWidget(r.addUI("materials", "randomizeHairMaterials",
+                                 mhapi.ui.createCheckBox(label="Randomize hair material", selected=True)))
+        layout.addWidget(r.addUI("materials", "randomizeClothesMaterials", mhapi.ui.createCheckBox(label="Randomize clothes material", selected=True)))
         layout.addWidget(mhapi.ui.createLabel())
 
     def _setupRandomizeProxies(self, layout, r):
         layout.addWidget(mhapi.ui.createLabel("Randomize clothes and body parts:"))
         layout.addWidget(r.addUI("proxies", "hair", mhapi.ui.createCheckBox(label="Randomize hair", selected=True)))
-        layout.addWidget(r.addUI("proxies", "eyelashes", mhapi.ui.createCheckBox(label="Randomize eyelashes", selected=True)))
-        layout.addWidget(r.addUI("proxies", "eyebrows", mhapi.ui.createCheckBox(label="Randomize eyebrows", selected=True)))
-        layout.addWidget(r.addUI("proxies", "fullClothes", mhapi.ui.createCheckBox(label="Randomize full body clothes", selected=True)))
-        layout.addWidget(r.addUI("proxies", "upperClothes", mhapi.ui.createCheckBox(label="Randomize upper body clothes", selected=False)))
-        layout.addWidget(r.addUI("proxies", "lowerClothes", mhapi.ui.createCheckBox(label="Randomize lower body clothes", selected=False)))
-        layout.addWidget(r.addUI("proxies", "shoes", mhapi.ui.createCheckBox(label="Randomize shoes", selected=True)))
+        layout.addWidget(
+            r.addUI("proxies", "eyelashes", mhapi.ui.createCheckBox(label="Randomize eyelashes", selected=True)))
+        layout.addWidget(
+            r.addUI("proxies", "eyebrows", mhapi.ui.createCheckBox(label="Randomize eyebrows", selected=True)))
+        layout.addWidget(r.addUI("proxies", "fullClothes",
+                                 mhapi.ui.createCheckBox(label="Randomize full body clothes", selected=True)))
+        layout.addWidget(r.addUI("proxies", "upperClothes",
+                                 mhapi.ui.createCheckBox(label="Randomize upper body clothes", selected=True)))
+        layout.addWidget(r.addUI("proxies", "lowerClothes",
+                                 mhapi.ui.createCheckBox(label="Randomize lower body clothes", selected=True)))
+        layout.addWidget(r.addUI("proxies", "shoes", mhapi.ui.createCheckBox(label="Randomize shoes", selected=False)))
         layout.addWidget(mhapi.ui.createLabel())
 
     def _generalMainTableSettings(self, table):
@@ -101,19 +108,9 @@ class MassProduceTaskView(gui3d.TaskView):
         allClothes.extend(sysClothes)
         allClothes.extend(userClothes)
         
-        femaleFullExplicit = ["female elegantsuit01",
-        "female casualsuit02",
-        "female casualsuit01",
-        "female sportsuit01"]
+        femaleFullExplicit = []
         
-        maleFullExplicit = ["male worksuit01",
-        "male elegantsuit01",        
-        "male casualsuit06",
-        "male casualsuit05",
-        "male casualsuit04",
-        "male casualsuit02",       
-        "male casualsuit01",        
-        "male casualsuit03"]
+        maleFullExplicit = []
 
         femaleFullKeyword = ["gown","dress","swimsuit"]
         maleFullKeyword = ["wetsuit"]
@@ -148,22 +145,22 @@ class MassProduceTaskView(gui3d.TaskView):
             clothesInfo["fullPath"] = fullPath
             clothesInfo["name"] = name
 
-            clothesInfo["maleFull"] = False
-            clothesInfo["femaleFull"] = False
+            clothesInfo["maleFull"] = True
+            clothesInfo["femaleFull"] = True
             
-            clothesInfo["maleUpper"] = False
-            clothesInfo["femaleUpper"] = False
+            clothesInfo["maleUpper"] = True
+            clothesInfo["femaleUpper"] = True
             
-            clothesInfo["maleLower"] = False
-            clothesInfo["femaleLower"] = False
+            clothesInfo["maleLower"] = True
+            clothesInfo["femaleLower"] = True
             
-            clothesInfo["maleShoes"] = False
-            clothesInfo["femaleShoes"] = False
+            clothesInfo["maleShoes"] = True
+            clothesInfo["femaleShoes"] = True
 
-            clothesInfo["mixedFull"] = False
-            clothesInfo["mixedUpper"] = False
-            clothesInfo["mixedLower"] = False
-            clothesInfo["mixedShoes"] = False
+            clothesInfo["mixedFull"] = True
+            clothesInfo["mixedUpper"] = True
+            clothesInfo["mixedLower"] = True
+            clothesInfo["mixedShoes"] = True
             
             if not "female" in name:
                 if name in maleFullExplicit:
@@ -364,16 +361,11 @@ class MassProduceTaskView(gui3d.TaskView):
         hair.extend(userHair)
 
         femaleOnly = [
-            "bob01",
-            "bob02",
-            "long01",
-            "braid01",
-            "ponytail01"
+
         ]
 
         maleOnly = [
-            "short02",
-            "short04"
+
         ]
 
         hairInfo = dict()
@@ -487,9 +479,12 @@ class MassProduceTaskView(gui3d.TaskView):
             eyebrowsWidgets = dict()
 
             self.allowedEyebrowsTable.setItem(i, 0, QTableWidgetItem(eyebrowsName))
-            eyebrowsWidgets["mixed"] = r.addUI("allowedEyebrows", eyebrowsName, mhapi.ui.createCheckBox(""), subName="mixed")
-            eyebrowsWidgets["female"] = r.addUI("allowedEyebrows", eyebrowsName, mhapi.ui.createCheckBox(""), subName="female")
-            eyebrowsWidgets["male"] = r.addUI("allowedEyebrows", eyebrowsName, mhapi.ui.createCheckBox(""), subName="male")
+            eyebrowsWidgets["mixed"] = r.addUI("allowedEyebrows", eyebrowsName, mhapi.ui.createCheckBox(""),
+                                               subName="mixed")
+            eyebrowsWidgets["female"] = r.addUI("allowedEyebrows", eyebrowsName, mhapi.ui.createCheckBox(""),
+                                                subName="female")
+            eyebrowsWidgets["male"] = r.addUI("allowedEyebrows", eyebrowsName, mhapi.ui.createCheckBox(""),
+                                              subName="male")
             r.addUI("allowedEyebrows", eyebrowsName, eyebrowsSettings["fullPath"], subName="fullPath")
 
             self.allowedEyebrowsTable.setCellWidget(i, 1, eyebrowsWidgets["mixed"])
@@ -555,9 +550,12 @@ class MassProduceTaskView(gui3d.TaskView):
             eyelashesWidgets = dict()
 
             self.allowedEyelashesTable.setItem(i, 0, QTableWidgetItem(eyelashesName))
-            eyelashesWidgets["mixed"] = r.addUI("allowedEyelashes", eyelashesName, mhapi.ui.createCheckBox(""), subName="mixed")
-            eyelashesWidgets["female"] = r.addUI("allowedEyelashes", eyelashesName, mhapi.ui.createCheckBox(""), subName="female")
-            eyelashesWidgets["male"] = r.addUI("allowedEyelashes", eyelashesName, mhapi.ui.createCheckBox(""), subName="male")
+            eyelashesWidgets["mixed"] = r.addUI("allowedEyelashes", eyelashesName, mhapi.ui.createCheckBox(""),
+                                                subName="mixed")
+            eyelashesWidgets["female"] = r.addUI("allowedEyelashes", eyelashesName, mhapi.ui.createCheckBox(""),
+                                                 subName="female")
+            eyelashesWidgets["male"] = r.addUI("allowedEyelashes", eyelashesName, mhapi.ui.createCheckBox(""),
+                                               subName="male")
             r.addUI("allowedEyelashes", eyelashesName, eyelashesSettings["fullPath"], subName="fullPath")
 
             self.allowedEyelashesTable.setCellWidget(i, 1, eyelashesWidgets["mixed"])
@@ -657,28 +655,19 @@ class MassProduceTaskView(gui3d.TaskView):
             self.allowedFemaleSkinsTable.setCellWidget(i, 3, female["asian"])
             self.allowedFemaleSkinsTable.setCellWidget(i, 4, female["caucasian"])
 
-            if self._matchesEthnicGender(n,"female") and not "special" in n:
+            is_female = "woman" in n or "female" in n
+            is_male = "man" in n or "male" in n
 
-                female["mixed"].setChecked(True)
-
-                if self._matchesEthnicGender(n,ethnicity="african"):
-                    female["african"].setChecked(True)
-                if self._matchesEthnicGender(n,ethnicity="asian") and not self._matchesEthnicGender(n,ethnicity="caucasian"):
-                    female["asian"].setChecked(True)
-                if self._matchesEthnicGender(n,ethnicity="caucasian"):
-                    female["caucasian"].setChecked(True)
-
-            if self._matchesEthnicGender(n,"male") and not self._matchesEthnicGender(n,"female") and not "special" in n:
-
+            if not is_female:
                 male["mixed"].setChecked(True)
-
-                if self._matchesEthnicGender(n,ethnicity="african"):
-                    male["african"].setChecked(True)
-                if self._matchesEthnicGender(n,ethnicity="asian") and not self._matchesEthnicGender(n,ethnicity="caucasian"):
-                    male["asian"].setChecked(True)
-                if self._matchesEthnicGender(n,ethnicity="caucasian"):
-                    male["caucasian"].setChecked(True)
-
+                male["african"].setChecked(True)
+                male["asian"].setChecked(True)
+                male["caucasian"].setChecked(True)
+            if is_female or not is_male:
+                female["mixed"].setChecked(True)
+                female["african"].setChecked(True)
+                female["asian"].setChecked(True)
+                female["caucasian"].setChecked(True)
 
             i = i + 1
 
@@ -720,9 +709,10 @@ class MassProduceTaskView(gui3d.TaskView):
         self.exportPanel = mhapi.ui.createGroupBox("Export settings")
         self.exportPanel.addWidget(mhapi.ui.createLabel("File name base"))
         r.addUI("output", "fnbase", self.exportPanel.addWidget(mhapi.ui.createTextEdit("mass")))
+        r.addUI("output", "seed", self.exportPanel.addWidget(mhapi.ui.createTextEdit("0")))
         self.exportPanel.addWidget(mhapi.ui.createLabel(""))
 
-        data = ["MHM","OBJ","MHX2","FBX","DAE"]
+        data = ["DAE", "MHM", "OBJ", "MHX2", "FBX"]
 
         self.exportPanel.addWidget(mhapi.ui.createLabel("File format"))
         r.addUI("output", "fileformat", self.exportPanel.addWidget(mhapi.ui.createComboBox(data=data)))
@@ -741,7 +731,7 @@ class MassProduceTaskView(gui3d.TaskView):
         self.producePanel = mhapi.ui.createGroupBox("Produce")
 
         self.producePanel.addWidget(mhapi.ui.createLabel("Number of characters"))
-        r.addUI("output", "numfiles", self.producePanel.addWidget(mhapi.ui.createTextEdit("5")))
+        r.addUI("output", "numfiles", self.producePanel.addWidget(mhapi.ui.createTextEdit("9999")))
         self.producePanel.addWidget(mhapi.ui.createLabel(""))
         self.produceButton = self.producePanel.addWidget(mhapi.ui.createButton("Produce"))
 
@@ -754,7 +744,7 @@ class MassProduceTaskView(gui3d.TaskView):
     def _createModelingSettings(self, r):
         self.modelingPanel = mhapi.ui.createGroupBox("Modeling settings")
 
-        defaultUnchecked = ["arms","hands","legs","feet"]
+        defaultUnchecked = []
 
         mfi = ModifierInfo()
         gn = mfi.getModifierGroupNames()
@@ -763,10 +753,12 @@ class MassProduceTaskView(gui3d.TaskView):
             label = n
             if n == "breast":
                 label = "breasts (if fem)"
-            r.addUI("modeling", n, self.modelingPanel.addWidget(mhapi.ui.createCheckBox(label="Randomize " + label, selected=sel)))
+            r.addUI("modeling", n,
+                    self.modelingPanel.addWidget(mhapi.ui.createCheckBox(label="Randomize " + label, selected=sel)))
 
         self.modelingPanel.addWidget(mhapi.ui.createLabel())
-        r.addUI("modeling", "maxdev", self.modelingPanel.addWidget(mhapi.ui.createSlider(value=0.3, min=0.0, max=1.0, label="Max deviation from default")))
+        r.addUI("modeling", "maxdev", self.modelingPanel.addWidget(
+            mhapi.ui.createSlider(value=0.4, min=0.0, max=1.0, label="Max deviation from default")))
 
         #self.modelingPanel.addWidget(mhapi.ui.createLabel())
         #r.addUI("modeling", "symmetry", self.modelingPanel.addWidget(mhapi.ui.createSlider(value=0.7, min=0.0, max=1.0, label="Symmetry")))
@@ -776,41 +768,58 @@ class MassProduceTaskView(gui3d.TaskView):
     def _createMacroSettings(self, r):
         self.macroPanel = mhapi.ui.createGroupBox("Macro settings")
 
-        r.addUI("macro", "randomizeAge", self.macroPanel.addWidget(mhapi.ui.createCheckBox(label="Randomize age", selected=True)))
-        r.addUI("macro", "ageMinimum", self.macroPanel.addWidget(mhapi.ui.createSlider(label="Minimum age", value=0.45)))
-        r.addUI("macro", "ageMaximum", self.macroPanel.addWidget(mhapi.ui.createSlider(label="Maximum age", value=0.95)))
+        r.addUI("macro", "randomizeAge",
+                self.macroPanel.addWidget(mhapi.ui.createCheckBox(label="Randomize age", selected=True)))
+        r.addUI("macro", "ageMinimum", self.macroPanel.addWidget(mhapi.ui.createSlider(label="Minimum age", value=0.0)))
+        r.addUI("macro", "ageMaximum", self.macroPanel.addWidget(mhapi.ui.createSlider(label="Maximum age", value=1.0)))
 
         self.macroPanel.addWidget(mhapi.ui.createLabel())
 
-        r.addUI("macro", "randomizeWeight", self.macroPanel.addWidget(mhapi.ui.createCheckBox(label="Randomize weight", selected=True)))
-        r.addUI("macro", "weightMinimum", self.macroPanel.addWidget(mhapi.ui.createSlider(label="Minimum weight", value=0.1)))
-        r.addUI("macro", "weightMaximum", self.macroPanel.addWidget(mhapi.ui.createSlider(label="Maximum weight", value=0.9)))
+        r.addUI("macro", "randomizeWeight",
+                self.macroPanel.addWidget(mhapi.ui.createCheckBox(label="Randomize weight", selected=True)))
+        r.addUI("macro", "weightMinimum",
+                self.macroPanel.addWidget(mhapi.ui.createSlider(label="Minimum weight", value=0.0)))
+        r.addUI("macro", "weightMaximum",
+                self.macroPanel.addWidget(mhapi.ui.createSlider(label="Maximum weight", value=1.0)))
 
         self.macroPanel.addWidget(mhapi.ui.createLabel())
 
-        r.addUI("macro", "randomizeHeight", self.macroPanel.addWidget(mhapi.ui.createCheckBox(label="Randomize height", selected=True)))
-        r.addUI("macro", "heightMinimum", self.macroPanel.addWidget(mhapi.ui.createSlider(label="Minimum height", value=0.2)))
-        r.addUI("macro", "heightMaximum", self.macroPanel.addWidget(mhapi.ui.createSlider(label="Maximum height", value=0.9)))
+        r.addUI("macro", "randomizeHeight",
+                self.macroPanel.addWidget(mhapi.ui.createCheckBox(label="Randomize height", selected=True)))
+        r.addUI("macro", "heightMinimum",
+                self.macroPanel.addWidget(mhapi.ui.createSlider(label="Minimum height", value=0.0)))
+        r.addUI("macro", "heightMaximum",
+                self.macroPanel.addWidget(mhapi.ui.createSlider(label="Maximum height", value=1.0)))
 
         self.macroPanel.addWidget(mhapi.ui.createLabel())
 
-        r.addUI("macro", "randomizeMuscle", self.macroPanel.addWidget(mhapi.ui.createCheckBox(label="Randomize muscle", selected=True)))
-        r.addUI("macro", "muscleMinimum", self.macroPanel.addWidget(mhapi.ui.createSlider(label="Minimum muscle", value=0.3)))
-        r.addUI("macro", "muscleMaximum", self.macroPanel.addWidget(mhapi.ui.createSlider(label="Maximum muscle", value=0.8)))
+        r.addUI("macro", "randomizeMuscle",
+                self.macroPanel.addWidget(mhapi.ui.createCheckBox(label="Randomize muscle", selected=True)))
+        r.addUI("macro", "muscleMinimum",
+                self.macroPanel.addWidget(mhapi.ui.createSlider(label="Minimum muscle", value=0.0)))
+        r.addUI("macro", "muscleMaximum",
+                self.macroPanel.addWidget(mhapi.ui.createSlider(label="Maximum muscle", value=1.0)))
 
         self.macroPanel.addWidget(mhapi.ui.createLabel())
 
-        r.addUI("macro", "gender", self.macroPanel.addWidget(mhapi.ui.createCheckBox(label="Randomize gender", selected=True)))
-        r.addUI("macro", "genderabsolute", self.macroPanel.addWidget(mhapi.ui.createCheckBox(label="Absolute gender", selected=True)))
+        r.addUI("macro", "gender",
+                self.macroPanel.addWidget(mhapi.ui.createCheckBox(label="Randomize gender", selected=True)))
+        r.addUI("macro", "genderabsolute",
+                self.macroPanel.addWidget(mhapi.ui.createCheckBox(label="Absolute gender", selected=True)))
 
         self.macroPanel.addWidget(mhapi.ui.createLabel())
 
-        r.addUI("macro", "ethnicity", self.macroPanel.addWidget(mhapi.ui.createCheckBox(label="Randomize ethnicity", selected=True)))
-        r.addUI("macro", "ethnicityabsolute", self.macroPanel.addWidget(mhapi.ui.createCheckBox(label="Absolute ethnicity", selected=True)))
+        r.addUI("macro", "ethnicity",
+                self.macroPanel.addWidget(mhapi.ui.createCheckBox(label="Randomize ethnicity", selected=True)))
+        r.addUI("macro", "ethnicityabsolute",
+                self.macroPanel.addWidget(mhapi.ui.createCheckBox(label="Absolute ethnicity", selected=False)))
 
         return self.macroPanel
 
     def _onProduceClick(self):
+        import random
+        seed = int(self.randomizationSettings.getValue("output", "seed"))
+        random.seed(seed)
         #print("Produce")
 
         #self.randomizationSettings.dumpValues()
@@ -818,43 +827,46 @@ class MassProduceTaskView(gui3d.TaskView):
         self.initialState = HumanState()
 
         i = int(self.randomizationSettings.getValue("output","numfiles"))
-        base = self.randomizationSettings.getValue("output","fnbase")
+        base = self.randomizationSettings.getValue("output", "fnbase") + "_" + str(seed) + "_"
 
         max = i
 
         prog = Progress()
 
         while i > 0:
-            prg = float(max - i + 1) / float(max)
-            prgStr = str( max - i + 1) + " / " + str(max)
-            prog(prg, desc="Randomizing " + prgStr)
-            self.nextState = HumanState(self.randomizationSettings)
-            self.nextState.applyState(False)
-            format = self.randomizationSettings.getValue("output","fileformat")
-            name = base + str(i).rjust(4,"0")
+            try:
+                prg = float(max - i + 1) / float(max)
+                prgStr = str( max - i + 1) + " / " + str(max)
+                prog(prg, desc="Randomizing " + prgStr)
+                self.nextState = HumanState(self.randomizationSettings)
+                self.nextState.applyState(False)
+                format = self.randomizationSettings.getValue("output","fileformat")
+                name = base + str(i).rjust(4,"0")
 
-            prog(prg, desc="Exporting " + prgStr)
+                prog(prg, desc="Exporting " + prgStr)
 
-            if format == "MHM":
-                path = mhapi.locations.getUserHomePath("models")
-                if not os.path.exists(path):
-                    os.makedirs(path)
-                name = name + ".mhm"
-                self.human.save(os.path.join(path,name))
-            if format == "OBJ":
-                mhapi.exports.exportAsOBJ(name + ".obj")
-            if format == "DAE":
-                mhapi.exports.exportAsDAE(name + ".dae")
-            if format == "FBX":
-                mhapi.exports.exportAsFBX(name + ".fbx")
-            if format == "MHX2" or format == "MHX":
-                mhapi.exports.exportAsMHX2(name + ".mhx2")
+                if format == "MHM":
+                    path = mhapi.locations.getUserHomePath("models")
+                    if not os.path.exists(path):
+                        os.makedirs(path)
+                    name = name + ".mhm"
+                    self.human.save(os.path.join(path,name))
+                if format == "OBJ":
+                    mhapi.exports.exportAsOBJ(name + ".obj")
+                if format == "DAE":
+                    mhapi.exports.exportAsDAE(name + ".dae")
+                if format == "FBX":
+                    mhapi.exports.exportAsFBX(name + ".fbx")
+                if format == "MHX2" or format == "MHX":
+                    mhapi.exports.exportAsMHX2(name + ".mhx2")
 
-            prog(prg, desc="Evaluating")
+                prog(prg, desc="Evaluating")
 
-            i = i - 1
-            self.initialState.applyState(True)
-            self.human.applyAllTargets()
+                i = i - 1
+                self.initialState.applyState(True)
+                self.human.applyAllTargets()
+            except:
+                pass
 
         self.msg = QMessageBox()
         self.msg.setIcon(QMessageBox.Information)

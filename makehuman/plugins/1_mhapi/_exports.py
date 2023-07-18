@@ -37,7 +37,7 @@ class Exports(NameSpace):
             of = outputFilename
             if useExportsDir:
                 of = os.path.basename(of)
-                ed = mh.getPath("exports")
+                ed = mh.getPath("exports")#save object path
                 of = os.path.join(ed,of)
             return of
         return fileentry

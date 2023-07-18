@@ -63,7 +63,7 @@ class ClothesTaskView(proxychooser.ProxyChooserTaskView):
         @self.faceHidingTggl.mhEvent
         def onMouseExited(event):
             self.visualizeFaceMasks(False)
-        self.faceHidingTggl.setSelected(True)
+        self.faceHidingTggl.setSelected(False)
 
         self.oldPxyMats = {}
         self.blockFaceMasking = False
